@@ -70,6 +70,7 @@ public class MorseKeyboard extends InputMethodService
     private LatinKeyboard mSymbolsKeyboard;
     private LatinKeyboard mSymbolsShiftedKeyboard;
     private LatinKeyboard mQwertyKeyboard;
+    private LatinKeyboard mMorseKeyboard;
     
     private LatinKeyboard mCurKeyboard;
     
@@ -100,6 +101,7 @@ public class MorseKeyboard extends InputMethodService
         mQwertyKeyboard = new LatinKeyboard(this, R.xml.qwerty);
         mSymbolsKeyboard = new LatinKeyboard(this, R.xml.symbols);
         mSymbolsShiftedKeyboard = new LatinKeyboard(this, R.xml.symbols_shift);
+        mMorseKeyboard = new LatinKeyboard(this, R.xml.morse);
     }
     
     /**
@@ -507,8 +509,12 @@ public class MorseKeyboard extends InputMethodService
             Keyboard current = mInputView.getKeyboard();
             if (current == mSymbolsKeyboard || current == mSymbolsShiftedKeyboard) {
                 current = mQwertyKeyboard;
-            } else {
-                current = mSymbolsKeyboard;
+            } 
+            else if(current == mQwertyKeyboard){
+                current = mMorseKeyboard;
+            }
+            else{
+            	current = mSymbolsKeyboard;
             }
             mInputView.setKeyboard(current);
             if (current == mSymbolsKeyboard) {
